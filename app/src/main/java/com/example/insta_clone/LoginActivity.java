@@ -62,9 +62,9 @@ public class LoginActivity extends AppCompatActivity {
         // Create the ParseUser
         ParseUser user = new ParseUser();
         // Set core properties
-        user.setUsername("joestevens");
-        user.setPassword("secret123");
-        user.setEmail("email@example.com");
+        user.setUsername(username);
+        user.setPassword(password);
+
 
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     goMainActivity();
                     Toast.makeText(LoginActivity.this,"SignUp Success!",Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.e(TAG,"Issue with login" ,e);
+                    Log.e(TAG,"Issue with SignUp" ,e);
                     return;
                 }
             }
