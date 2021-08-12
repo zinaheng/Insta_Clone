@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private EditText etDescription;
-    private Button btnCaptureImage, btnSubmit;
+    private Button btnCaptureImage, btnSubmit, btnLogout;
     private ImageView ivPostImage;
     private File photoFile;
     public String photoFileName = "photo.jpg";
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnLogout = findViewById(R.id.btnLogout);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOut();
+                Toast.makeText(MainActivity.this, "User logged out", Toast.LENGTH_SHORT).show();
+                goToLogInActivity();
+
+            }
+        });
+        ParseUser currentUser = ParseUser.getCurrentUser();
         //queryPosts();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
                 savePost(description, currentUser, photoFile);
             }
         });
+    }
+
+    private void goToLogInActivity() {
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+            finish();
+
     }
 
     private void lauchCamera() {
